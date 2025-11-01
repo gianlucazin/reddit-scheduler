@@ -139,11 +139,36 @@ After deployment, update your Reddit app's redirect URI to match your Vercel URL
 
 ### Test Locally
 
+For local development with both frontend and API functions working:
+
+**Option 1: Full Local Testing (Recommended)**
+
+1. **Terminal 1 - Start Vercel dev server (for API functions):**
+
+   ```bash
+   vercel dev
+   ```
+
+   This starts the serverless functions on `http://localhost:3000`
+
+2. **Terminal 2 - Start Vite dev server (for frontend):**
+
+   ```bash
+   npm run dev
+   ```
+
+   This starts the React app on `http://localhost:5173` and proxies API calls to Vercel
+
+3. Visit `http://localhost:5173` in your browser
+
+**Option 2: Frontend Only Testing**
+
 ```bash
 # Start development server
 npm run dev
 
 # The app will be available at http://localhost:5173
+# Note: API functions won't work locally with this approach - test them after deployment
 ```
 
 ## Project Structure
