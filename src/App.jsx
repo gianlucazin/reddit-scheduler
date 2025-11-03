@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import SchedulerForm from './components/SchedulerForm.jsx'
+import PostsList from './components/PostsList.jsx'
 import './styles/App.css'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState(null)
+  const [refreshTrigger, setRefreshTrigger] = useState(0)
 
   useEffect(() => {
     // Check if user is authenticated on mount
@@ -64,6 +66,11 @@ function App() {
     setIsAuthenticated(false)
   }
 
+  const handlePostCreated = () => {
+    // Trigger refresh of posts list
+    setRefreshTrigger(prev => prev + 1)
+  }
+
   return (
     <div className="app">
       <header className="app-header">
@@ -79,7 +86,10 @@ function App() {
       </header>
       <main className="app-main">
         {isAuthenticated ? (
-          <SchedulerForm user={user} />
+          <div className="content-grid">
+            <SchedulerForm user={user} onPostCreated={handlePostCreated} />
+            <PostsList user={user} refreshTrigger={refreshTrigger} />
+          </div>
         ) : (
           <div className="login-prompt">
             <p>Please log in with Reddit to schedule posts.</p>

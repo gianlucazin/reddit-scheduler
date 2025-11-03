@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function SchedulerForm({ user }) {
+function SchedulerForm({ user, onPostCreated }) {
   const [subreddit, setSubreddit] = useState('')
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
@@ -55,6 +55,10 @@ function SchedulerForm({ user }) {
         setBody('')
         setLink('')
         setScheduleTime('')
+        // Notify parent to refresh posts list
+        if (onPostCreated) {
+          onPostCreated()
+        }
       } else {
         setMessage(data.error || 'Failed to schedule post')
       }
