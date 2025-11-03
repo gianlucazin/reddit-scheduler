@@ -128,13 +128,9 @@ export default async function handler(req, res) {
     const encryptedRefreshToken = encrypt(refresh_token);
     await createOrUpdateUser(userId, encryptedRefreshToken);
 
-    // Redirect to frontend with success message
-    const frontendUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:5173";
-
+    // Redirect to frontend with success message (relative path keeps user on current domain)
     return res.redirect(
-      `${frontendUrl}/?auth=success&user=${encodeURIComponent(
+      `/?auth=success&user=${encodeURIComponent(
         JSON.stringify({
           username: userId,
           userId: userId,
