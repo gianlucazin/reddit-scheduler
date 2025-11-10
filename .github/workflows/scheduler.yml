@@ -1,9 +1,9 @@
 name: Reddit Scheduler Cron
 
 on:
-  schedule:
-    # Run every 10 minutes
-    - cron: '*/10 * * * *'
+  # schedule:
+  #   # Run every 10 minutes
+  #   - cron: '*/10 * * * *'
   workflow_dispatch: # Allow manual triggering
 
 jobs:
@@ -21,4 +21,3 @@ jobs:
         env:
           SCHEDULER_API_URL: ${{ secrets.SCHEDULER_API_URL }}
           SCHEDULER_AUTH_TOKEN: ${{ secrets.SCHEDULER_AUTH_TOKEN }}
-
